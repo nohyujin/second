@@ -21,6 +21,8 @@
 - [**기획안 (Ideation)**](ideation.md): 프로젝트 초기 구상 및 기획 의도
 - [**요구사항 정의서 (PRD)**](docs/PRD.md): 상세 기능 명세 및 개발 로드맵
 - [**개발 태스크 (Task)**](docs/Task.md): 개발 진행 상황 체크리스트
+- [**프레젠테이션**](https://nohyujin.github.io/second/): 프로젝트 소개 슬라이드
+- [**GitHub Actions 가이드**](docs/GitHub-Actions-Guide.md): 자동 배포 워크플로우 완벽 가이드
 
 ## 🚀 실행 방법 (Getting Started)
 1. 저장소를 클론(Clone)합니다.
