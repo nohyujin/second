@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HRD-Analyzer - 로컬 기반 HRD 만족도 원클릭 분석기</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .presentation-container {
+            max-width: 900px;
+            width: 100%;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        .slide {
+            display: none;
+            padding: 60px;
+            min-height: 600px;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        .slide.active {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .slide.lead {
+            background: linear-gradient(135deg, #0066cc 0%, #004999 100%);
+            color: white;
+            text-align: center;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1 {
+            color: #0066cc;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .slide.lead h1 {
+            color: white;
+            font-size: 3em;
+        }
+
+        h2 {
+            color: #333;
+            font-size: 1.8em;
+            margin-bottom: 15px;
+        }
+
+        .slide.lead h2 {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.5em;
+        }
+
+        h3 {
+            color: #0066cc;
+            font-size: 1.3em;
+            margin: 20px 0 10px 0;
+        }
+
+        p, li {
+            color: #333;
+            font-size: 1.1em;
+            line-height: 1.8;
+            margin-bottom: 10px;
+        }
+
+        .slide.lead p {
+            color: rgba(255, 255, 255, 0.95);
+            font-size: 1.3em;
+            font-weight: 500;
+        }
+
+        ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        ul li {
+            padding-left: 30px;
+            position: relative;
+            margin-bottom: 15px;
+        }
+
+        ul li:before {
+            content: "▸";
+            position: absolute;
+            left: 0;
+            color: #0066cc;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        ol {
+            padding-left: 30px;
+        }
+
+        ol li {
+            margin-bottom: 15px;
+        }
+
+        blockquote {
+            background: #f0f7ff;
+            border-left: 4px solid #0066cc;
+            padding: 20px;
+            margin: 20px 0;
+            font-style: italic;
+            color: #555;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            background: #f8f9fa;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .nav-button {
+            background: #0066cc;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 102, 204, 0.3);
+        }
+
+        .nav-button:hover {
+            background: #0052a3;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 102, 204, 0.4);
+        }
+
+        .nav-button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            box-shadow: none;
+            transform: none;
+        }
+
+        .slide-counter {
+            color: #666;
+            font-weight: 600;
+            font-size: 1em;
+        }
+
+        .emoji {
+            font-size: 1.2em;
+        }
+
+        @media (max-width: 768px) {
+            .slide {
+                padding: 40px 30px;
+                min-height: 500px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            .slide.lead h1 {
+                font-size: 2.2em;
+            }
+
+            h2 {
+                font-size: 1.5em;
+            }
+
+            .navigation {
+                padding: 15px 20px;
+            }
+
+            .nav-button {
+                padding: 10px 20px;
+                font-size: 0.9em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="presentation-container">
+        <!-- Slide 1 -->
+        <div class="slide active lead">
+            <h1>HRD-Analyzer</h1>
+            <h2>로컬 기반 HRD 만족도 원클릭 분석기</h2>
+            <p><strong>보안 걱정 없는 나만의 데이터 분석 비서</strong></p>
+        </div>
+
+        <!-- Slide 2 -->
+        <div class="slide">
+            <h1>1. 프로젝트 개요 (Overview)</h1>
+            <h3>배경 (Background)</h3>
+            <ul>
+                <li><strong>보안 이슈</strong>: 사내 교육 만족도 데이터는 민감 정보로, 외부 클라우드 업로드가 제한됨.</li>
+                <li><strong>반복 업무</strong>: 매번 엑셀을 열어 차트를 그리고 보고서를 만드는 비효율 발생.</li>
+            </ul>
+            <h3>목표 (Objectives)</h3>
+            <ul>
+                <li><strong>Localhost</strong>: 외부 전송 없이, 100% 내 PC에서 실행.</li>
+                <li><strong>Save Time</strong>: 엑셀 파일만 넣으면 분석 끝.</li>
+                <li><strong>Data Driven</strong>: 감이 아닌 데이터로 교육 효과 입증.</li>
+            </ul>
+        </div>
+
+        <!-- Slide 3 -->
+        <div class="slide">
+            <h1>2. 핵심 기능 (Key Features)</h1>
+            <ol>
+                <li>
+                    <strong>데이터 업로드 (Excel Upload)</strong>
+                    <ul>
+                        <li>엑셀 파일(<code>xlsx</code>) 드래그 앤 드롭 지원.</li>
+                        <li>별도 데이터 가공 없이 원본 그대로 사용 가능.</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>자동 분석 대시보드 (Dashboard)</strong>
+                    <ul>
+                        <li>평균 만족도, 강사 평가 점수 자동 계산.</li>
+                        <li>NPS (순수 추천 지수) 등 핵심 지표 카드 표시.</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>인사이트 시각화 (Visualization)</strong>
+                    <ul>
+                        <li>직급별 만족도 차이 (Box Plot)</li>
+                        <li>이해도 vs 실무 적용도 상관관계 (Scatter Plot)</li>
+                    </ul>
+                </li>
+            </ol>
+        </div>
+
+        <!-- Slide 4 -->
+        <div class="slide">
+            <h1>3. 기술 스택 (Tech Stack)</h1>
+            <p>비용 0원, 유지보수 용이한 <strong>파이썬 오픈소스</strong> 생태계 활용</p>
+            <ul>
+                <li><strong>Language</strong>: Python 3.x</li>
+                <li><strong>Web Framework</strong>: Streamlit (빠르고 직관적인 UI)</li>
+                <li><strong>Data Processing</strong>: Pandas (엑셀 데이터 처리)</li>
+                <li><strong>Visualization</strong>: Plotly Express (인터랙티브 차트)</li>
+            </ul>
+            <blockquote>
+                "복잡한 웹 개발 지식 없이도, 파이썬 코드만으로 강력한 대시보드를 구축"
+            </blockquote>
+        </div>
+
+        <!-- Slide 5 -->
+        <div class="slide">
+            <h1>4. 사용자 흐름 (User Flow)</h1>
+            <ol>
+                <li><strong>실행</strong>: 터미널에서 <code>streamlit run app.py</code> 입력</li>
+                <li><strong>접속</strong>: 브라우저 창이 열림 (localhost)</li>
+                <li><strong>업로드</strong>: 분석할 엑셀 파일 투척</li>
+                <li><strong>확인</strong>: 자동으로 그려진 차트와 지표 확인</li>
+                <li><strong>보고</strong>: 결과 캡쳐하여 보고서 작성</li>
+            </ol>
+        </div>
+
+        <!-- Slide 6 -->
+        <div class="slide">
+            <h1>5. 개발 로드맵 (Roadmap)</h1>
+            <ul>
+                <li><strong>Step 1: 환경 구축</strong> (Python, Libs 설치) <span class="emoji">✅</span></li>
+                <li><strong>Step 2: MVP 기능 구현</strong> (파일 업로드, 기본 차트) <span class="emoji">🚧</span></li>
+                <li><strong>Step 3: 고도화</strong> (워드 클라우드, PDF 내보내기) <span class="emoji">📅</span></li>
+                <li><strong>Step 4: 배포</strong> (사내 공유용 exe 파일 변환 등) <span class="emoji">🚀</span></li>
+            </ul>
+        </div>
+
+        <!-- Slide 7 -->
+        <div class="slide lead">
+            <h1>Q & A</h1>
+            <h2>감사합니다</h2>
+        </div>
+
+        <div class="navigation">
+            <button class="nav-button" id="prevBtn" onclick="changeSlide(-1)">← 이전</button>
+            <span class="slide-counter"><span id="currentSlide">1</span> / <span id="totalSlides">7</span></span>
+            <button class="nav-button" id="nextBtn" onclick="changeSlide(1)">다음 →</button>
+        </div>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        
+        document.getElementById('totalSlides').textContent = totalSlides;
+
+        function showSlide(n) {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (n + totalSlides) % totalSlides;
+            slides[currentSlide].classList.add('active');
+            
+            document.getElementById('currentSlide').textContent = currentSlide + 1;
+            
+            // Update button states
+            document.getElementById('prevBtn').disabled = currentSlide === 0;
+            document.getElementById('nextBtn').disabled = currentSlide === totalSlides - 1;
+        }
+
+        function changeSlide(direction) {
+            showSlide(currentSlide + direction);
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') changeSlide(-1);
+            if (e.key === 'ArrowRight') changeSlide(1);
+        });
+
+        // Initialize
+        showSlide(0);
+    </script>
+</body>
+</html>
